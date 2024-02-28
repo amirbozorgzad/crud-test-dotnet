@@ -1,6 +1,4 @@
 ﻿using System.Text.Json.Serialization;
-using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Identity;
 
 namespace Mc2.CrudTest.Presentation.Api.Infrastructure;
 
@@ -19,9 +17,8 @@ public class DotNetStartupConfig
                 options.JsonSerializerOptions.MaxDepth = 32;
             })
             .ConfigureApiBehaviorOptions(option => option.SuppressMapClientErrors = true);
-        services.AddRazorPages();
-        services.AddServerSideBlazor();
-    
+        //services.AddRazorPages();
+        //services.AddServerSideBlazor();
 
 
         services.AddCors(options =>
