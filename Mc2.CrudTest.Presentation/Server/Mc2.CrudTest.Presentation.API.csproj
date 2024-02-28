@@ -18,6 +18,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\MC2.CrudTest.Core\MC2.CrudTest.Core.csproj"/>
+        <ProjectReference Include="..\..\Mc2.CrudTest.Persistence\Mc2.CrudTest.Persistence.csproj"/>
         <ProjectReference Include="..\..\Mc2.CrudTest.Service\Mc2.CrudTest.Service.csproj"/>
         <ProjectReference Include="..\Client\Mc2.CrudTest.Presentation.Client.csproj"/>
         <ProjectReference Include="..\Shared\Mc2.CrudTest.Presentation.Shared.csproj"/>

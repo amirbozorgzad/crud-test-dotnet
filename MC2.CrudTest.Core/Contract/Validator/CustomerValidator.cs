@@ -1,35 +1,47 @@
 using System.Text.RegularExpressions;
 using FluentValidation;
-using MC2.CrudTest.Core.Domain.Model;
+using Mc2.CrudTest.Core.Contract.Customer;
+using PhoneNumbers;
 
 namespace MC2.CrudTest.Core.Contract.Validator;
 
-public class CustomerValidator : AbstractValidator<Customer>
+public class CustomerValidator : AbstractValidator<CustomerDto>
 {
     public CustomerValidator()
     {
         RuleFor(x => x.FirstName).NotEmpty();
         RuleFor(x => x.LastName).NotEmpty().WithMessage("Please specify a first name");
-        RuleFor(x => x.Email).Must(BeAValidEmail).WithMessage("Email format is not valid");
-        RuleFor(x => x.PhoneNumber).Must(BeAValidPhoneNumber).WithMessage("Phone number format is not valid");
-        RuleFor(x => x.DateOfBirth).LessThan(DateTime.Now).WithMessage("Date of birth should not greater than today date");
+        RuleFor(x => x.Email).Must(IsValidEmail).WithMessage("Email format is not valid");
+        RuleFor(x => x.PhoneNumber).Must(IsValidPhoneNumber).WithMessage("Phone number format is not valid");
+        RuleFor(x => x.BankAccountNumber).Must(IsValidAccountNumber).WithMessage("Account number format is not valid");
+        RuleFor(x => x.DateOfBirth).LessThan(DateTime.Now.Date)
+            .WithMessage("Date of birth should not greater than today date");
     }
 
-    private bool BeAValidEmail(string email)
+    private bool IsValidEmail(string email)
     {
-        Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+        Regex regex = new(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
         Match match = regex.Match(email);
         if (match.Success)
             return true;
-        else
-            return false;
+        return false;
     }
-    private bool BeAValidPhoneNumber(string phoneNumber)
+
+    private bool IsValidAccountNumber(string number)
     {
-        var phoneNumberUtil = PhoneNumbers.PhoneNumberUtil.GetInstance();
+        Regex regex = new("^\\w{1,17}$");
+        Match match = regex.Match(number);
+        if (match.Success)
+            return true;
+        return false;
+    }
+
+    private bool IsValidPhoneNumber(string phoneNumber)
+    {
+        PhoneNumberUtil? phoneNumberUtil = PhoneNumberUtil.GetInstance();
         try
         {
-            PhoneNumbers.PhoneNumber number = phoneNumberUtil.Parse(phoneNumber,"IR");
+            PhoneNumber number = phoneNumberUtil.Parse(phoneNumber, "IR");
             return phoneNumberUtil.IsValidNumber(number);
         }
         catch

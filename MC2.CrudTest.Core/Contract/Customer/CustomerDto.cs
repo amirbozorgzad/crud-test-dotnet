@@ -14,6 +14,10 @@ public class CustomerDto
         BankAccountNumber = entity.BankAccountNumber;
     }
 
+    public CustomerDto()
+    {
+    }
+
     public long? Id { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
@@ -27,13 +31,12 @@ public class CustomerDto
     {
         MC2.CrudTest.Core.Domain.Model.Customer entity =
             existingCustomer ?? new MC2.CrudTest.Core.Domain.Model.Customer();
-        entity.Id = existingCustomer.Id;
-        entity.FirstName = existingCustomer.FirstName;
-        entity.LastName = existingCustomer.LastName;
-        entity.Email = existingCustomer.Email;
-        entity.DateOfBirth = existingCustomer.DateOfBirth;
-        entity.PhoneNumber = existingCustomer.PhoneNumber;
-        entity.BankAccountNumber = existingCustomer.BankAccountNumber;
+        entity.FirstName = FirstName;
+        entity.LastName = LastName;
+        entity.Email = Email;
+        entity.DateOfBirth = DateOfBirth;
+        entity.PhoneNumber = PhoneNumber;
+        entity.BankAccountNumber = BankAccountNumber;
         return entity;
     }
 }

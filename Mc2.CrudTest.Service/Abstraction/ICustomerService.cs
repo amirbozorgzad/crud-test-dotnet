@@ -6,8 +6,8 @@ namespace MC2.CrudTest.Service.Abstraction;
 
 public interface ICustomerService
 {
-    ValueTask<ResultDto<List<Customer>?>> GetCustomers(long? id);
-    ValueTask<ResultDto<(string message, long id)>> UpdateCustomer(CustomerDto customerDto);
-    ValueTask<ResultDto<(string message, long id)>> CreateCustomer(CustomerDto customerDto);
+    ValueTask<ResultDto<List<Customer>?>> GetCustomers(long? id = null);
+    ValueTask<ResultDto<string>> UpdateCustomer(CustomerDto customerDto);
+    ValueTask<ResultDto<string>> CreateCustomer(CustomerDto customerDto);
     ValueTask<ResultDto<string>> DeleteCustomer(long id);
 }
