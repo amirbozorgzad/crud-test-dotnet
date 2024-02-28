@@ -30,13 +30,13 @@ public class CustomerController : ControllerBase
         return Ok(await _customerService.GetCustomers());
     }
 
-    [HttpPut("customers/{id}")]
+    [HttpPut("customer/{id}")]
     public async Task<IActionResult> UpdateCustomer(long id, [FromBody] CustomerDto dto)
     {
         return Ok(await _customerService.UpdateCustomer(dto, id));
     }
 
-    [HttpDelete("customers/{customerId}")]
+    [HttpDelete("customer/{customerId}")]
     public async Task<IActionResult> DeleteCustomer(int customerId)
     {
         return Ok(await _customerService.DeleteCustomer(customerId));
