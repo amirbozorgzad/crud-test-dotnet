@@ -18,7 +18,7 @@ public class CustomerDto
     {
     }
 
-    public long? Id { get; set; }
+    public long? Id { get; internal set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public DateTime DateOfBirth { get; set; }

@@ -50,20 +50,20 @@ public class CustomerService : ICustomerService
         };
     }
 
-    public async ValueTask<ResultDto<string>> UpdateCustomer(CustomerDto dto)
+    public async ValueTask<ResultDto<string>> UpdateCustomer(CustomerDto dto, long id)
     {
         ValidationContext<CustomerDto> validationContext = new(dto);
         ValidationResult? validationResult = await _validator.ValidateAsync(validationContext);
         if (validationResult.IsValid)
         {
-            List<Customer>? existingCustomer = (await GetCustomers(dto.Id)).Result;
+            List<Customer>? existingCustomer = (await GetCustomers(id)).Result;
             if (existingCustomer.IsNullOrEmpty())
                 return new ResultDto<string>
                 {
                     IsOk = false,
                     Result = "The Customer does not exist"
                 };
-            if (await IsEmailInUse(dto.Email, dto.Id))
+            if (await IsEmailInUse(dto.Email, id))
                 return new ResultDto<string>
                 {
                     IsOk = false,
