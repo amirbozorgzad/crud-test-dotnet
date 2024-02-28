@@ -30,6 +30,6 @@ public sealed class CalculatorStepDefinitions
     {
         //TODO: implement assert (verification) logic
 
-        _scenarioContext.Pending();
+        _scenarioContext.Pending(); 
     }
 }
