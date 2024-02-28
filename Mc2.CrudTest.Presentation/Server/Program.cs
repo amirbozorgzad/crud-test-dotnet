@@ -2,9 +2,9 @@ using FluentValidation;
 using MC2.CrudTest.Core.Contract.Validator;
 using MC2.CrudTest.Core.Domain.Context;
 using MC2.CrudTest.Core.Domain.Model;
+using MC2.CrudTest.Service.Abstraction;
+using MC2.CrudTest.Service.Implementation;
 using Microsoft.EntityFrameworkCore;
-using Service.Abstraction;
-using Service.Implementation;
 
 namespace Mc2.CrudTest.Presentation.API;
 

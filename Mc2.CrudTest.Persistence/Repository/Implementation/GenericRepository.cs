@@ -1,8 +1,8 @@
 ﻿using System.Linq.Expressions;
-using Core.Domain.Repository;
+using MC2.CrudTest.Core.Domain.Repository.Abstraction;
 using Microsoft.EntityFrameworkCore;
 
-namespace Persistence.Repository;
+namespace MC2.CrudTest.Persistence.Repository.Implementation;
 
 public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
 {

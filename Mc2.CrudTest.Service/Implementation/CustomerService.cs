@@ -1,12 +1,12 @@
-using Core.Contract;
-using Core.Domain;
 using Core.ShareExtension;
+using MC2.CrudTest.Core.Contract;
 using Mc2.CrudTest.Core.Contract.Customer;
+using MC2.CrudTest.Core.Domain;
 using MC2.CrudTest.Core.Domain.Model;
+using MC2.CrudTest.Service.Abstraction;
 using Microsoft.EntityFrameworkCore;
-using Service.Abstraction;
 
-namespace Service.Implementation;
+namespace MC2.CrudTest.Service.Implementation;
 
 public class CustomerService : ICustomerService
 {

@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace Core.Domain.Repository;
+namespace MC2.CrudTest.Core.Domain.Repository.Abstraction;
 
 public interface IGenericRepository<TEntity> where TEntity : class
 {

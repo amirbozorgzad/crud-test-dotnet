@@ -1,4 +1,4 @@
-namespace Core.Contract;
+namespace MC2.CrudTest.Core.Contract;
 
 public interface IResult<T>
 {

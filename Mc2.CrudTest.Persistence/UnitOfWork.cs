@@ -1,7 +1,7 @@
-﻿using Core.Domain;
-using Core.Domain.Repository;
+﻿using MC2.CrudTest.Core.Domain;
 using MC2.CrudTest.Core.Domain.Context;
-using Persistence.Repository;
+using MC2.CrudTest.Core.Domain.Repository.Abstraction;
+using MC2.CrudTest.Persistence.Repository.Implementation;
 
 namespace Mc2.CrudTest.Persistence;
 

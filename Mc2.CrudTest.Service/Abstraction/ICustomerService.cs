@@ -1,8 +1,8 @@
-using Core.Contract;
+using MC2.CrudTest.Core.Contract;
 using Mc2.CrudTest.Core.Contract.Customer;
 using MC2.CrudTest.Core.Domain.Model;
 
-namespace Service.Abstraction;
+namespace MC2.CrudTest.Service.Abstraction;
 
 public interface ICustomerService
 {
