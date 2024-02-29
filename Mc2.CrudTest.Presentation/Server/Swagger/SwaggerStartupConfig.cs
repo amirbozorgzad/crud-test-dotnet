@@ -21,6 +21,6 @@ public class SwaggerStartupConfig
     public void ConfigSwaggerUI(IApplicationBuilder app, IConfiguration configuration)
     {
         app.UseSwagger();
-        app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/CustomerAreaV1/swagger.json", "Tax Area v1"); });
+        app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/CustomerAreaV1/swagger.json", "Customer Area v1"); });
     }
 }
