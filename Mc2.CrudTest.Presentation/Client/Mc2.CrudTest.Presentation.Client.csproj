@@ -13,7 +13,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\MC2.CrudTest.Core\MC2.CrudTest.Core.csproj"/>
         <ProjectReference Include="..\Shared\Mc2.CrudTest.Presentation.Shared.csproj"/>
     </ItemGroup>
 
