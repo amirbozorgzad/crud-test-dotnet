@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Mc2.CrudTest.Presentation.Server.Controllers;
 
+[Route("api/[controller]")]
 [ApiController]
-[Route("[controller]")]
 public class CustomerController : ControllerBase
 {
     private readonly ILogger<CustomerController> _logger;
@@ -31,8 +31,8 @@ public class CustomerController : ControllerBase
         return Ok(await mediator.Send(new GetAllCustomersQueryModel()));
     }
 
-    [HttpPut("customer/{id}")]
-    public async Task<IActionResult> UpdateCustomer(long id, EditCustomerCommandModel command)
+    [HttpPut("customer")]
+    public async Task<IActionResult> UpdateCustomer(EditCustomerCommandModel command)
     {
         return Ok(await mediator.Send(command));
     }

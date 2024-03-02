@@ -1,5 +1,10 @@
-using System.Reflection;
 using CrudTest.Core.Context.CustomerContext;
+using CrudTest.Core.Context.Model;
+using CrudTest.Feature.CustomerFeatures.Command.Add;
+using CrudTest.Feature.CustomerFeatures.Command.Delete;
+using CrudTest.Feature.CustomerFeatures.Query.GetCustemerById;
+using CrudTest.Feature.CustomerFeatures.Query.GetCustomerList;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -19,7 +24,14 @@ builder.Services.AddDbContext<CustomerContext>(options =>
 });
 
 builder.Services.AddScoped<ICustomerContext>(provider => provider.GetService<CustomerContext>());
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
+builder.Services.AddTransient<IRequestHandler<AddCustomerCommandModel, long>, AddCustomerCommandHandler>();
+builder.Services.AddTransient<IRequestHandler<EditCustomerCommandModel, long>, EditCustomerCommandHandler>();
+builder.Services.AddTransient<IRequestHandler<DeleteCustomerCommandModel, long>, DeleteCustomerCommandHandler>();
+builder.Services
+    .AddTransient<IRequestHandler<GetAllCustomersQueryModel, IEnumerable<Customer>>, GetAllCustomersQueryHandler>();
+builder.Services.AddTransient<IRequestHandler<GetCustomerByIdQueryModel, Customer>, GetCustomerByIdQueryHandler>();
+
 
 #region Swagger
 
