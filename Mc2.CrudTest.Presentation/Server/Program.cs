@@ -1,4 +1,9 @@
-using System.Reflection;
+using CrudTest.Core;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using CrudTest.Core.Context.CustomerContext;
 using CrudTest.Core.Context.Model;
 using CrudTest.Feature.CustomerFeatures.Command.Add;
@@ -9,18 +14,12 @@ using CrudTest.Feature.CustomerFeatures.Query.GetCustomerList;
 using CrudTest.Feature.CustomerFeatures.Validator;
 using FluentValidation;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
-WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
 builder.Services.AddDbContext<CustomerContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
@@ -29,21 +28,14 @@ builder.Services.AddDbContext<CustomerContext>(options =>
 
 builder.Services.AddScoped<ICustomerContext>(provider => provider.GetService<CustomerContext>());
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
-Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
-builder.Services.AddValidatorsFromAssemblies(assemblies);
-builder.Services.AddValidatorsFromAssemblyContaining<AddCustomerValidator>();
-builder.Services.AddValidatorsFromAssemblyContaining<EditCustomerValidator>();
-
+builder.Services.AddValidatorsFromAssembly(typeof(AddCustomerValidator).Assembly);
 builder.Services.AddTransient<IRequestHandler<AddCustomerCommandModel, long>, AddCustomerCommandHandler>();
 builder.Services.AddTransient<IRequestHandler<EditCustomerCommandModel, long>, EditCustomerCommandHandler>();
 builder.Services.AddTransient<IRequestHandler<DeleteCustomerCommandModel, long>, DeleteCustomerCommandHandler>();
-builder.Services
-    .AddTransient<IRequestHandler<GetAllCustomersQueryModel, IEnumerable<Customer>>, GetAllCustomersQueryHandler>();
+builder.Services.AddTransient<IRequestHandler<GetAllCustomersQueryModel, IEnumerable<Customer>>, GetAllCustomersQueryHandler>();
 builder.Services.AddTransient<IRequestHandler<GetCustomerByIdQueryModel, Customer>, GetCustomerByIdQueryHandler>();
 
-
-#region Swagger
-
+// Swagger
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
@@ -53,26 +45,22 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-#endregion
+var app = builder.Build();
 
-WebApplication app = builder.Build();
-
-#region Swagger
-
-app.UseSwagger();
-app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "CrudTestApp.WebApi"); });
-
-#endregion
-
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CrudTestApp.WebApi"));
+}
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<CustomerContext>();
+    DbInitializer.Initialize(context);
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
 
 app.MapControllers();
