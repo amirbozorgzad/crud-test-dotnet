@@ -3,6 +3,7 @@ using CrudTest.Core.Context.Model;
 using FluentValidation;
 using FluentValidation.Results;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace CrudTest.Feature.CustomerFeatures.Command.Add;
 
@@ -22,6 +23,9 @@ public class AddCustomerCommandHandler : IRequestHandler<AddCustomerCommandModel
         ValidationResult? validationResult = await _validator.ValidateAsync(request, cancellationToken);
         if (validationResult.IsValid)
         {
+            bool isEmailInUse =
+                await _customerContext.Customer.AnyAsync(c => c.Email == request.Email, cancellationToken);
+            if (isEmailInUse) return default;
             Customer customer = new()
             {
                 FirstName = request.FirstName,

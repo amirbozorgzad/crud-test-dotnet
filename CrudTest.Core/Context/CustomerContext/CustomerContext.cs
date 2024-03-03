@@ -19,6 +19,11 @@ public class CustomerContext : DbContext, ICustomerContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(modelBuilder);
+        modelBuilder.Entity<Customer>(entity =>
+        {
+            entity.ToTable("Customer");
+            entity.HasKey(c => c.Id);
+            entity.HasIndex(c => new { c.FirstName, c.LastName, c.DateOfBirth }).IsUnique();
+        });
     }
 }
