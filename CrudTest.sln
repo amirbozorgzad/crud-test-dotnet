@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrudTest.Core", "CrudTest.C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrudTest.Feature", "CrudTest.Feature\CrudTest.Feature.csproj", "{EE6AC3D8-FB32-4AC2-928A-5817500AFBC3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrudTest.UnitTest", "CrudTest.UnitTest\CrudTest.UnitTest.csproj", "{29936975-07A1-4161-9187-7809B648D2F7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{EE6AC3D8-FB32-4AC2-928A-5817500AFBC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE6AC3D8-FB32-4AC2-928A-5817500AFBC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE6AC3D8-FB32-4AC2-928A-5817500AFBC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29936975-07A1-4161-9187-7809B648D2F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29936975-07A1-4161-9187-7809B648D2F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29936975-07A1-4161-9187-7809B648D2F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29936975-07A1-4161-9187-7809B648D2F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
