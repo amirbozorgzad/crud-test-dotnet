@@ -19,24 +19,43 @@ public class CustomerController : ControllerBase
         this.mediator = mediator;
     }
 
+    /// <summary>
+    ///     Creates a New Customer.
+    /// </summary>
+    /// <param name="command"></param>
+    /// <returns></returns>
     [HttpPost]
     public async Task<IActionResult> CreateCustomer([FromBody] AddCustomerCommandModel command)
     {
         return Ok(await mediator.Send(command));
     }
 
+    /// <summary>
+    ///     Get a list of Customers.
+    /// </summary>
+    /// <returns></returns>
     [HttpGet("customers")]
     public async Task<IActionResult> GetCustomers()
     {
         return Ok(await mediator.Send(new GetAllCustomersQueryModel()));
     }
 
+    /// <summary>
+    ///     Update an existing Customer.
+    /// </summary>
+    /// <param name="command"></param>
+    /// <returns></returns>
     [HttpPut("customer")]
     public async Task<IActionResult> UpdateCustomer(EditCustomerCommandModel command)
     {
         return Ok(await mediator.Send(command));
     }
 
+    /// <summary>
+    ///     Delete an existing Customer.
+    /// </summary>
+    /// <param name="customerId"></param>
+    /// <returns></returns>
     [HttpDelete("customer/{customerId}")]
     public async Task<IActionResult> DeleteCustomer(long customerId)
     {
