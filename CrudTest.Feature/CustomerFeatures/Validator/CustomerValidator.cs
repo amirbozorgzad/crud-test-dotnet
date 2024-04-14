@@ -5,9 +5,9 @@ using PhoneNumbers;
 
 namespace CrudTest.Feature.CustomerFeatures.Validator;
 
-public class AddCustomerValidator : AbstractValidator<AddCustomerCommandModel>
+public class CustomerValidator<T> : AbstractValidator<T> where T : AddCustomerCommandModel
 {
-    public AddCustomerValidator()
+    public CustomerValidator()
     {
         RuleFor(x => x.FirstName).NotEmpty();
         RuleFor(x => x.LastName).NotEmpty().WithMessage("Please specify a first name");
@@ -15,33 +15,29 @@ public class AddCustomerValidator : AbstractValidator<AddCustomerCommandModel>
         RuleFor(x => x.PhoneNumber).Must(IsValidPhoneNumber).WithMessage("Phone number format is not valid");
         RuleFor(x => x.BankAccountNumber).Must(IsValidAccountNumber).WithMessage("Account number format is not valid");
         RuleFor(x => x.DateOfBirth).LessThan(DateTime.Now.Date)
-            .WithMessage("Date of birth should not greater than today date");
+            .WithMessage("Date of birth should not be greater than today's date");
     }
 
     private bool IsValidEmail(string email)
     {
         Regex regex = new(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
-        Match match = regex.Match(email);
-        if (match.Success)
-            return true;
-        return false;
+        var match = regex.Match(email);
+        return match.Success;
     }
 
     private bool IsValidAccountNumber(string number)
     {
         Regex regex = new("^\\w{1,17}$");
-        Match match = regex.Match(number);
-        if (match.Success)
-            return true;
-        return false;
+        var match = regex.Match(number);
+        return match.Success;
     }
 
     private bool IsValidPhoneNumber(string phoneNumber)
     {
-        PhoneNumberUtil? phoneNumberUtil = PhoneNumberUtil.GetInstance();
+        var phoneNumberUtil = PhoneNumberUtil.GetInstance();
         try
         {
-            PhoneNumber number = phoneNumberUtil.Parse(phoneNumber, "IR");
+            var number = phoneNumberUtil.Parse(phoneNumber, "IR");
             return phoneNumberUtil.IsValidNumber(number);
         }
         catch
